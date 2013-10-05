@@ -53,7 +53,7 @@ void display_tickets(tm_type * tm)
 		
 		}
 	
-		printf("%s\t\t%s\t%s\t\t$%i\t%i\n", current->data->ticket_name, print, current->data->ticket_zone, current->data->ticket_price, current->data->stock_level);
+		printf("%s\t\t%s\t%s\t\t$%.2f\t%i\n", current->data->ticket_name, print, current->data->ticket_zone, (float)current->data->ticket_price, current->data->stock_level);
 		
 
 		current = current->next_node;
@@ -68,6 +68,22 @@ void display_tickets(tm_type * tm)
 **************************************************************************/
 void add_ticket(tm_type * tm)
 {
+	struct stock_data *data = NULL;
+	char temp_ticket_name[TICKET_NAME_LEN], temp_ticket_type, temp_ticket_zone[TICKET_ZONE_LEN+1];
+	char char_ticket_price[10], char_stock_level[10];	
+	unsigned int temp_ticket_price, temp_stock_level;
+	printf("\nAdd Ticket\n");
+	printf("-----------\n\n");
+	
+	printf("Ticket name (1-40 characters): ");
+	fgets(temp_ticket_name, TICKET_NAME_LEN + EXTRA_SPACES, stdin);
+	printf("Ticket type (1 character): ");
+	temp_ticket_type = getc(stdin);
+	printf("Ticket zone (1-3 characters): ");
+	fgets(temp_ticket_zone, TICKET_ZONE_LEN+1, stdin);
+	printf("Price (in cents): ");
+	
+	
 }
 
 /**************************************************************************
