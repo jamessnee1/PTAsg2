@@ -72,14 +72,18 @@ void display_tickets(tm_type * tm)
 **************************************************************************/
 void add_ticket(tm_type * tm)
 {
-	/*struct stock_data *data = NULL;*/
+	struct stock_data *data = NULL;
 	char temp_ticket_name[TICKET_NAME_LEN], temp_ticket_type[1 + EXTRA_SPACES], temp_ticket_zone[TICKET_ZONE_LEN+1];
 	char char_ticket_price[10];	
-	unsigned int *temp_ticket_price = 0;
+	unsigned int temp_ticket_price = 0;
+	BOOLEAN finished = FALSE;
 	char * prompt1 = "Ticket name (1-40 characters): ";
 	char * prompt2 = "Ticket type (1 character): ";
 	char * prompt3 = "Ticket zone (1-3 characters): ";
-	char * prompt4 = "Price (in cents): ";
+	
+	/*Malloc stock_data*/
+	data = (struct stock_data *)malloc(sizeof(struct stock_data));
+	
 	printf("\nAdd Ticket\n");
 	printf("-----------\n\n");
 	
@@ -101,10 +105,40 @@ void add_ticket(tm_type * tm)
 	}
 		printf("The value of temp ticket zone is %s\n", temp_ticket_zone);
 	
-	if (intinput(prompt4, char_ticket_price, 10, temp_ticket_price) == FALSE){
-		return;
-	}
-		printf("The value of temp_ticket_price is %u\n", *temp_ticket_price);
+	/*Input cents*/
+	
+	do{
+		printf("Price (in cents): ");
+		fgets(char_ticket_price, 10, stdin);
+	
+		if(char_ticket_price[strlen(char_ticket_price) -1] !='\n'){
+                printf("Error: Input was too long! Try again.\n");
+                read_rest_of_line();
+        
+            }
+        
+            else if (strcmp(char_ticket_price, "\n") == 0){
+                    return;
+            }
+            else{
+                char_ticket_price[strlen(char_ticket_price) -1] = '\0';
+                temp_ticket_price = atoi(char_ticket_price);
+				finished = TRUE;
+            }
+		
+	} while (!finished);
+	
+		printf("The value of temp_ticket_price is %u\n", temp_ticket_price);
+		
+		/*Add temp variables to struct*/
+		strcpy(data -> ticket_name, temp_ticket_name);
+		data -> ticket_type = temp_ticket_type;
+		strcpy(data -> ticket_zone, temp_ticket_zone);
+		data -> ticket_price = temp_ticket_price;
+		data -> stock_level = DEFAULT_STOCK_LEVEL;
+		
+		/*Send data to add stock function*/
+		add_stock_to_node(tm, data);
 }
 
 /**************************************************************************

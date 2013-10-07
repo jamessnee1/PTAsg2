@@ -70,37 +70,7 @@ char * charinput(char * prompt, char * storage, int size){
 	return storage;	
 }
 
-/*Int Input function that converts chars to ints*/
-int * intinput(char * prompt, char * storage, int size, unsigned int * result){
-	
-	BOOLEAN finished = FALSE;
-	
-	do{
-        printf("%s", prompt);
-        fgets(storage, size, stdin);
-       
-            if(storage[strlen(storage) -1] !='\n'){
-                printf("Error: Input was too long! Try again.\n");
-                read_rest_of_line();
-        
-            }
-        
-            else if (strcmp(storage, "\n") == 0){
-                    return FALSE;
-            }
-            else{
-                storage[strlen(storage) -1] = '\0';
-                finished = TRUE;
-            }
-        
-        }while(!finished);
-		
-		/*convert storage to int*/
-		result = atoi(storage);
-		printf("Result is %u\n", *result);
 
-	return result;
-}
 
 
 

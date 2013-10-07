@@ -25,5 +25,5 @@ BOOLEAN load_data(tm_type_ptr tm, char * stockfile, char * coinsfile);
 void system_free(tm_type_ptr);
 char * stringinput(char * prompt, char * storage, int size);
 char * charinput(char * prompt, char * storage, int size);
-int * intinput(char * prompt, char * storage, int size, unsigned int * result);
+
 #endif
