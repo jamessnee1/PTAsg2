@@ -118,7 +118,7 @@ BOOLEAN add_stock_to_node(tm_type_ptr tm, struct stock_data *data){
 		currentItem = tm->stock->head_stock;
 	
 		/*list traversal*/
-		while(currentItem != NULL){
+		while(currentItem != NULL && stock_cmp(currentItem->data, data) < 0){
 		
 			previousItem = currentItem;
 			currentItem = currentItem->next_node;
@@ -145,4 +145,14 @@ BOOLEAN add_stock_to_node(tm_type_ptr tm, struct stock_data *data){
 	tm->stock->num_stock_items++;
 	
 	return TRUE;
+}
+
+/*this function compares data in two nodes*/
+int stock_cmp(struct stock_data *first, struct stock_data *second)
+{
+    int cmp = 0;
+    cmp = strcmp(first->ticket_name, second->ticket_name);
+    if(cmp != 0)
+        return cmp;
+    return strcmp(first->ticket_name, second->ticket_name);
 }
