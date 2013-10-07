@@ -33,6 +33,7 @@ void purchase_ticket(tm_type * tm)
 void display_tickets(tm_type * tm)
 {
 	char *print;
+	float price;
 	/*Create pointers to the nodes*/
 	stock_node *current = NULL;
 	
@@ -53,7 +54,10 @@ void display_tickets(tm_type * tm)
 		
 		}
 		
-		printf("%s\t\t%s\t%s\t\t$%.2f\t%i\n", current->data->ticket_name, print, current->data->ticket_zone, (float)current->data->ticket_price, current->data->stock_level);
+		/*convert cents to dollars and cents*/
+		price = (float)current->data->ticket_price / 100;
+		
+		printf("%s\t\t%s\t%s\t\t$%4.2f\t%i\n", current->data->ticket_name, print, current->data->ticket_zone, price, current->data->stock_level);
 		
 
 		current = current->next_node;
@@ -69,8 +73,8 @@ void display_tickets(tm_type * tm)
 void add_ticket(tm_type * tm)
 {
 	/*struct stock_data *data = NULL;*/
-	char temp_ticket_name[TICKET_NAME_LEN], *temp_ticket_type = NULL, temp_ticket_zone[TICKET_ZONE_LEN+1];
-	char char_ticket_price[10], char_stock_level[10];	
+	char temp_ticket_name[TICKET_NAME_LEN], temp_ticket_type[1 + EXTRA_SPACES], temp_ticket_zone[TICKET_ZONE_LEN+1];
+	char char_ticket_price[10];	
 	unsigned int *temp_ticket_price = 0;
 	char * prompt1 = "Ticket name (1-40 characters): ";
 	char * prompt2 = "Ticket type (1 character): ";
@@ -86,10 +90,11 @@ void add_ticket(tm_type * tm)
 	
 		printf("The value of temp ticket name is %s\n", temp_ticket_name);
 	
-	if (charinput(prompt2, &temp_ticket_type, 1 + EXTRA_SPACES) == FALSE){
+	if (charinput(prompt2, temp_ticket_type, 1 + EXTRA_SPACES) == FALSE){
 		return;
 	}
-		printf("The value of temp ticket type is %c\n", temp_ticket_type);
+		printf("The value of temp ticket type is %c\n", *temp_ticket_type);
+		printf("As a string its %s\n", temp_ticket_type);
 		
 	if (stringinput(prompt3, temp_ticket_zone, TICKET_ZONE_LEN + 1) == FALSE){
 		return;
@@ -99,7 +104,7 @@ void add_ticket(tm_type * tm)
 	if (intinput(prompt4, char_ticket_price, 10, temp_ticket_price) == FALSE){
 		return;
 	}
-		printf("The value of temp_ticket_price is %u\n", temp_ticket_price);
+		printf("The value of temp_ticket_price is %u\n", *temp_ticket_price);
 }
 
 /**************************************************************************

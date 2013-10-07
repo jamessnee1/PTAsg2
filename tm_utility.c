@@ -97,6 +97,7 @@ int * intinput(char * prompt, char * storage, int size, unsigned int * result){
 		
 		/*convert storage to int*/
 		result = atoi(storage);
+		printf("Result is %u\n", *result);
 
 	return result;
 }
