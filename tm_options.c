@@ -52,7 +52,7 @@ void display_tickets(tm_type * tm)
 			print = "Concession";
 		
 		}
-	
+		
 		printf("%s\t\t%s\t%s\t\t$%.2f\t%i\n", current->data->ticket_name, print, current->data->ticket_zone, (float)current->data->ticket_price, current->data->stock_level);
 		
 
@@ -68,22 +68,38 @@ void display_tickets(tm_type * tm)
 **************************************************************************/
 void add_ticket(tm_type * tm)
 {
-	struct stock_data *data = NULL;
-	char temp_ticket_name[TICKET_NAME_LEN], temp_ticket_type, temp_ticket_zone[TICKET_ZONE_LEN+1];
+	/*struct stock_data *data = NULL;*/
+	char temp_ticket_name[TICKET_NAME_LEN], *temp_ticket_type = NULL, temp_ticket_zone[TICKET_ZONE_LEN+1];
 	char char_ticket_price[10], char_stock_level[10];	
-	unsigned int temp_ticket_price, temp_stock_level;
+	unsigned int *temp_ticket_price = 0;
+	char * prompt1 = "Ticket name (1-40 characters): ";
+	char * prompt2 = "Ticket type (1 character): ";
+	char * prompt3 = "Ticket zone (1-3 characters): ";
+	char * prompt4 = "Price (in cents): ";
 	printf("\nAdd Ticket\n");
 	printf("-----------\n\n");
 	
-	printf("Ticket name (1-40 characters): ");
-	fgets(temp_ticket_name, TICKET_NAME_LEN + EXTRA_SPACES, stdin);
-	printf("Ticket type (1 character): ");
-	temp_ticket_type = getc(stdin);
-	printf("Ticket zone (1-3 characters): ");
-	fgets(temp_ticket_zone, TICKET_ZONE_LEN+1, stdin);
-	printf("Price (in cents): ");
 	
+	if (stringinput(prompt1, temp_ticket_name, TICKET_NAME_LEN) == FALSE){
+		return;
+	}
 	
+		printf("The value of temp ticket name is %s\n", temp_ticket_name);
+	
+	if (charinput(prompt2, &temp_ticket_type, 1 + EXTRA_SPACES) == FALSE){
+		return;
+	}
+		printf("The value of temp ticket type is %c\n", temp_ticket_type);
+		
+	if (stringinput(prompt3, temp_ticket_zone, TICKET_ZONE_LEN + 1) == FALSE){
+		return;
+	}
+		printf("The value of temp ticket zone is %s\n", temp_ticket_zone);
+	
+	if (intinput(prompt4, char_ticket_price, 10, temp_ticket_price) == FALSE){
+		return;
+	}
+		printf("The value of temp_ticket_price is %u\n", temp_ticket_price);
 }
 
 /**************************************************************************

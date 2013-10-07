@@ -13,6 +13,96 @@
 /* add any 'helper' functions here that provide generic service to your 
  * application. read_rest_of_line() is provided here as an example of this
  */
+ 
+/*String Input function that takes in a prompt, storage var and a size as a param*/
+char * stringinput(char * prompt, char * storage, int size){
+	
+	BOOLEAN finished = FALSE;
+	
+	do{
+        printf("%s", prompt);
+        fgets(storage, size, stdin);
+       
+            if(storage[strlen(storage) -1] !='\n'){
+                printf("Error: Input was too long! Try again.\n");
+                read_rest_of_line();
+        
+            }
+        
+            else if (strcmp(storage, "\n") == 0){
+                    return FALSE;
+            }
+            else{
+                storage[strlen(storage) -1] = '\0';
+                finished = TRUE;
+            }
+        
+        }while(!finished);
+
+	return storage;	
+}
+
+/*Char Input function that takes in a prompt, storage var and a size as a param*/
+char * charinput(char * prompt, char * storage, int size){
+	
+	BOOLEAN finished = FALSE;
+	
+	do{
+        printf("%s", prompt);
+        fgets(storage, size, stdin);
+       
+            if(storage[strlen(storage) -1] !='\n'){
+                printf("Error: Input was too long! Try again.\n");
+                read_rest_of_line();
+        
+            }
+        
+            else if (strcmp(storage, "\n") == 0){
+                    return FALSE;
+            }
+            else{
+                storage[strlen(storage) -1] = '\0';
+                finished = TRUE;
+            }
+        
+        }while(!finished);
+
+	return storage;	
+}
+
+/*Int Input function that converts chars to ints*/
+int * intinput(char * prompt, char * storage, int size, unsigned int * result){
+	
+	BOOLEAN finished = FALSE;
+	
+	do{
+        printf("%s", prompt);
+        fgets(storage, size, stdin);
+       
+            if(storage[strlen(storage) -1] !='\n'){
+                printf("Error: Input was too long! Try again.\n");
+                read_rest_of_line();
+        
+            }
+        
+            else if (strcmp(storage, "\n") == 0){
+                    return FALSE;
+            }
+            else{
+                storage[strlen(storage) -1] = '\0';
+                finished = TRUE;
+            }
+        
+        }while(!finished);
+		
+		/*convert storage to int*/
+		result = atoi(storage);
+
+	return result;
+}
+
+
+
 
 /***************************************************************************
 * read_rest_of_line() - reads characters from the input buffer until 
