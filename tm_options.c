@@ -81,9 +81,6 @@ void add_ticket(tm_type * tm)
 	char * prompt2 = "Ticket type (1 character): ";
 	char * prompt3 = "Ticket zone (1-3 characters): ";
 	
-	/*Malloc stock_data*/
-	data = (struct stock_data *)malloc(sizeof(struct stock_data));
-	
 	printf("\nAdd Ticket\n");
 	printf("-----------\n\n");
 	
@@ -92,18 +89,16 @@ void add_ticket(tm_type * tm)
 		return;
 	}
 	
-		printf("The value of temp ticket name is %s\n", temp_ticket_name);
 	
 	if (charinput(prompt2, temp_ticket_type, 1 + EXTRA_SPACES) == FALSE){
 		return;
 	}
-		printf("The value of temp ticket type is %c\n", *temp_ticket_type);
-		printf("As a string its %s\n", temp_ticket_type);
+		
 		
 	if (stringinput(prompt3, temp_ticket_zone, TICKET_ZONE_LEN + 1) == FALSE){
 		return;
 	}
-		printf("The value of temp ticket zone is %s\n", temp_ticket_zone);
+		
 	
 	/*Input cents*/
 	
@@ -128,11 +123,20 @@ void add_ticket(tm_type * tm)
 		
 	} while (!finished);
 	
-		printf("The value of temp_ticket_price is %u\n", temp_ticket_price);
+		
+		/*Malloc stock_data*/
+		data = (struct stock_data *)malloc(sizeof(struct stock_data));
+		
+		/*If memory allocation fails*/
+		if (!data){
+			perror("Error: Memory allocation failed! Exiting...\n");
+			free(data);
+			exit(EXIT_FAILURE);
+		}
 		
 		/*Add temp variables to struct*/
 		strcpy(data -> ticket_name, temp_ticket_name);
-		data -> ticket_type = temp_ticket_type;
+		data ->ticket_type = *temp_ticket_type;
 		strcpy(data -> ticket_zone, temp_ticket_zone);
 		data -> ticket_price = temp_ticket_price;
 		data -> stock_level = DEFAULT_STOCK_LEVEL;

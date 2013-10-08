@@ -148,11 +148,12 @@ BOOLEAN add_stock_to_node(tm_type_ptr tm, struct stock_data *data){
 }
 
 /*this function compares data in two nodes*/
-int stock_cmp(struct stock_data *first, struct stock_data *second)
-{
-    int cmp = 0;
+int stock_cmp(struct stock_data *first, struct stock_data *second){
+    
+	int cmp = 0;
     cmp = strcmp(first->ticket_name, second->ticket_name);
-    if(cmp != 0)
+    if(cmp != 0){
         return cmp;
+	}
     return strcmp(first->ticket_name, second->ticket_name);
 }
