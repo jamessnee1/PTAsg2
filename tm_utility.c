@@ -94,6 +94,7 @@ void read_rest_of_line(void)
 ***************************************************************************/
 BOOLEAN system_init(tm_type * tm)
 {
+
 	/*Malloc space for the tm->stock list*/
 	tm->stock = (struct stock_list *)malloc(sizeof(struct stock_list));
 	
@@ -103,7 +104,7 @@ BOOLEAN system_init(tm_type * tm)
 	
 	}
 	
-	/*Malloc space for the coin list, enough for 6 coin types*/
+	/*Malloc pointer for the coin list*/
 	tm->coins = (struct coin *)malloc(sizeof(struct coin));
 	
 	

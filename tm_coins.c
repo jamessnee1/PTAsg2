@@ -94,6 +94,9 @@ return TRUE;
 
 
 BOOLEAN add_coin_to_node(tm_type_ptr tm, struct coin *data){
+	
+	printf("In add coin to node\n");
+	
 
 
 return TRUE;
