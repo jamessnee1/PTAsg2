@@ -177,7 +177,80 @@ void add_ticket(tm_type * tm)
 **************************************************************************/
 void delete_ticket(tm_type * tm)
 {
+	/*Pointers to nodes*/
+	struct stock_node *current = NULL, *previous = NULL, *next;
+	/*Temp variables*/
+	char temp_ticket_name[TICKET_NAME_LEN], temp_ticket_type[1 + EXTRA_SPACES], temp_ticket_zone[TICKET_ZONE_LEN+1];
+	/*prompts*/
+	char * prompt1 = "Ticket name (1-40 characters): ";
+	char * prompt2 = "Ticket type (1 character): ";
+	char * prompt3 = "Ticket zone (1-3 characters): ";
+	
+	/*point current to head node*/
+	current = tm->stock->head_stock;
+	
+	printf("\nDelete Ticket\n");
+	printf("----------------\n\n");
+	
+	if (stringinput(prompt1, temp_ticket_name, TICKET_NAME_LEN) == FALSE){
+		return;
+	}
+	
+	
+	if (charinput(prompt2, temp_ticket_type, 1 + EXTRA_SPACES) == FALSE){
+		return;
+	}
+		
+		
+	if (stringinput(prompt3, temp_ticket_zone, TICKET_ZONE_LEN + 1) == FALSE){
+		return;
+	}
+	
+	/*Remove from the list*/
+	while (current != NULL){
+		
+		/*If ticket name is the same as the one entered in*/
+		if (strcmp(current->data->ticket_name, temp_ticket_name) == 0){
+		
+			/*We have found it*/
+			if (current == tm->stock->head_stock){
+			
+				tm->stock->head_stock = current->next_node;
+                /*decrement stock number by 1*/
+                tm->stock->num_stock_items--;
+                printf("\nTicket has been removed from system.\n");
+                return;
+            
+			}
+				else{
+				/*If the current is not head, set next to current->next and previous->next to next and free*/
+                next = current->next_node;
+                previous->next_node = next;
+                free(current);
+                /*decrement numPrograms by 1*/
+                tm->stock->num_stock_items--;
+                printf("\nTicket has been removed from system.\n");
+                return;
+			
+				}
+		}
+		
+			else{
+			
+					/*If conditions arent met, iterate through list*/
+					previous = current;
+					current = current->next_node;
+				}
+			
+		}
+		
+		printf("Error: Ticket name does not exist! Could not delete ticket!\n\n");
+		return;
+		
 }
+	
+	
+
 
 /**************************************************************************
 * display_coins() - display a list of each of the coin types in the system

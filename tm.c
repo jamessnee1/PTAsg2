@@ -89,6 +89,7 @@ int main(int argc, char** argv)
 			add_ticket(&tm);
 			break;
 		case 5:
+			delete_ticket(&tm);
 			break;
 		case 6:
 			break;
