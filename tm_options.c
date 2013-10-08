@@ -181,6 +181,7 @@ void delete_ticket(tm_type * tm)
 	struct stock_node *current = NULL, *previous = NULL, *next;
 	/*Temp variables*/
 	char temp_ticket_name[TICKET_NAME_LEN], temp_ticket_type[1 + EXTRA_SPACES], temp_ticket_zone[TICKET_ZONE_LEN+1];
+	char *print;
 	/*prompts*/
 	char * prompt1 = "Ticket name (1-40 characters): ";
 	char * prompt2 = "Ticket type (1 character): ";
@@ -200,11 +201,12 @@ void delete_ticket(tm_type * tm)
 	if (charinput(prompt2, temp_ticket_type, 1 + EXTRA_SPACES) == FALSE){
 		return;
 	}
-		
+	
 		
 	if (stringinput(prompt3, temp_ticket_zone, TICKET_ZONE_LEN + 1) == FALSE){
 		return;
 	}
+	
 	
 	/*Remove from the list*/
 	while (current != NULL){
@@ -214,34 +216,52 @@ void delete_ticket(tm_type * tm)
 		
 			/*We have found it*/
 			if (current == tm->stock->head_stock){
-			
+				
+				/*set the print variable to what type it is*/
+				if (current->data->ticket_type == 'F'){
+					print = "full fare";
+		
+				}
+				else {
+					print = "concession";
+		
+				}
+				
+				/*set the head stock to next node*/
 				tm->stock->head_stock = current->next_node;
                 /*decrement stock number by 1*/
                 tm->stock->num_stock_items--;
-                printf("\nTicket has been removed from system.\n");
+                printf("\nTicket \'%s %s zone %s\' has been removed from ticketing machine.\n", temp_ticket_name, print, temp_ticket_zone);
                 return;
             
 			}
 				else{
+				
+				/*set the print variable to what type it is*/
+				if (current->data->ticket_type == 'F'){
+					print = "full fare";
+		
+				}
+				else {
+					print = "concession";
+		
+				}
 				/*If the current is not head, set next to current->next and previous->next to next and free*/
                 next = current->next_node;
                 previous->next_node = next;
                 free(current);
                 /*decrement numPrograms by 1*/
                 tm->stock->num_stock_items--;
-                printf("\nTicket has been removed from system.\n");
+                printf("\nTicket \'%s %s zone %s\' has been removed from ticketing machine.\n", temp_ticket_name, print, temp_ticket_zone);
                 return;
 			
 				}
 		}
-		
-			else{
-			
-					/*If conditions arent met, iterate through list*/
-					previous = current;
-					current = current->next_node;
-				}
-			
+
+			/*If conditions arent met, iterate through list*/
+			previous = current;
+			current = current->next_node;
+	
 		}
 		
 		printf("Error: Ticket name does not exist! Could not delete ticket!\n\n");
