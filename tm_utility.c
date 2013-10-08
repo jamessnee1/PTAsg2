@@ -174,8 +174,12 @@ void system_free(tm_type_ptr tm)
 	/*Create pointers to the lists*/
 	stock_node *currentItem = NULL, *nextItem = NULL;
 	
+	/*Free coin list, todo*/
+	free(tm->coins);
+	
 	/*set current to head*/
 	currentItem = tm->stock->head_stock;
+	
 	
 	while (currentItem != NULL){
 	
