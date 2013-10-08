@@ -43,6 +43,10 @@ char * stringinput(char * prompt, char * storage, int size){
 	return storage;	
 }
 
+
+
+
+
 /*Char Input function that takes in a prompt, storage var and a size as a param*/
 char * charinput(char * prompt, char * storage, int size){
 	
@@ -70,10 +74,6 @@ char * charinput(char * prompt, char * storage, int size){
 
 	return storage;	
 }
-
-
-
-
 
 
 /***************************************************************************
@@ -176,9 +176,6 @@ void system_free(tm_type_ptr tm)
 	/*Create pointers to the lists*/
 	stock_node *currentItem = NULL, *nextItem = NULL;
 	
-	/*Free coin list, todo*/
-	free(tm->coins);
-	
 	/*set current to head*/
 	currentItem = tm->stock->head_stock;
 	
@@ -195,7 +192,8 @@ void system_free(tm_type_ptr tm)
 	
 	}
 	
-	/*finally, free tm->stock	*/
+	/*finally, free tm->stock and coins*/
 	free(tm->stock);
+	free(tm->coins);
 
 }

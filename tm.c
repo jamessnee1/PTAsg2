@@ -78,6 +78,7 @@ int main(int argc, char** argv)
 			printf("Error: Not a valid option! Please try again.\n\n");
 			break;
 		case 1:
+			purchase_ticket(&tm);
 			break;
 		case 2:
 			display_tickets(&tm);

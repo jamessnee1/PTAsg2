@@ -22,6 +22,29 @@
 **************************************************************************/
 void purchase_ticket(tm_type * tm)
 {
+	/*declare temp variables*/
+	char temp_ticket_name[TICKET_NAME_LEN], temp_ticket_type[1 + EXTRA_SPACES], temp_ticket_zone[TICKET_ZONE_LEN+1];
+	char *prompt1 = "Enter a ticket name (1-40 characters): ";
+	char *prompt2 = "Enter a ticket type (1 character): ";
+	char *prompt3 = "Enter a zone (1, 2, or 1+2): ";
+	
+	printf("\nPurchase Ticket\n");
+	printf("---------------\n\n");
+	
+		if (stringinput(prompt1, temp_ticket_name, TICKET_NAME_LEN) == FALSE){
+			return;
+		}
+		
+			
+		if (charinput(prompt2, temp_ticket_type, 1 + EXTRA_SPACES) == FALSE){
+			return;
+		}
+		
+		
+		if (stringinput(prompt3, temp_ticket_zone, TICKET_ZONE_LEN + 1) == FALSE){
+			return;
+		}
+	
 }
 
 /**************************************************************************
@@ -39,8 +62,8 @@ void display_tickets(tm_type * tm)
 	
 	/*set the node to head*/
 	current = tm->stock->head_stock;
-	
-	printf("Ticket\t\tType\t\tZone\t\tPrice\tQty\n");
+
+	printf("\n\nTicket\t\tType\t\tZone\t\tPrice\tQty\n");
 	printf("----------\t--------\t--------\t-----   ---\n");
 	
 	while (current != NULL){
@@ -57,11 +80,12 @@ void display_tickets(tm_type * tm)
 		/*convert cents to dollars and cents*/
 		price = (float)current->data->ticket_price / 100;
 		
-		printf("%s\t\t%s\t%s\t\t$%4.2f\t%i\n", current->data->ticket_name, print, current->data->ticket_zone, price, current->data->stock_level);
+		printf("%s\t\t%s\t%s\t\t$%4.2f\t%3i\n", current->data->ticket_name, print, current->data->ticket_zone, price, current->data->stock_level);
 		
 
 		current = current->next_node;
 	}
+	printf("\n");
 }
 
 /***************************************************************************
