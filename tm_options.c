@@ -35,11 +35,9 @@ void purchase_ticket(tm_type * tm)
 			return;
 		}
 		
-			
 		if (charinput(prompt2, temp_ticket_type, 1 + EXTRA_SPACES) == FALSE){
 			return;
 		}
-		
 		
 		if (stringinput(prompt3, temp_ticket_zone, TICKET_ZONE_LEN + 1) == FALSE){
 			return;
