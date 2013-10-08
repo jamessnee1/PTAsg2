@@ -174,6 +174,26 @@ void display_coins(tm_type * tm)
 **************************************************************************/
 void restock_tickets(tm_type * tm)
 {
+	/*Create pointers to the nodes*/
+	stock_node *current = NULL;
+	
+	/*set the node to head*/
+	current = tm->stock->head_stock;
+	
+	printf("\nRestock Tickets\n");
+	printf("---------------\n");
+	
+	
+	while (current != NULL){
+	
+		/*set default stock level for each node*/
+		current->data->stock_level = DEFAULT_STOCK_LEVEL;
+	
+		current = current->next_node;
+	}
+	
+	printf("All ticket products have been restored to the default level.\n\n");
+	
 }
 
 /**************************************************************************

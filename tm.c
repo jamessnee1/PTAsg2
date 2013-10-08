@@ -92,6 +92,7 @@ int main(int argc, char** argv)
 		case 6:
 			break;
 		case 7:
+			restock_tickets(&tm);
 			break;
 		case 8:
 			break;

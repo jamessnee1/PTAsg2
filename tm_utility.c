@@ -32,6 +32,7 @@ char * stringinput(char * prompt, char * storage, int size){
             else if (strcmp(storage, "\n") == 0){
                     return FALSE;
             }
+
             else{
                 storage[strlen(storage) -1] = '\0';
                 finished = TRUE;
