@@ -284,6 +284,24 @@ void delete_ticket(tm_type * tm)
 **************************************************************************/
 void display_coins(tm_type * tm)
 {
+	int i = 0;
+	float total;
+	float amount;
+	printf("\nCoin\tQuantity\tValue\n");
+	printf("----\t--------\t-----\n\n");
+	
+	for (i = 0; i < COIN_LENGTH; i++){
+	
+		
+		amount = (float)tm->coins->denomination / 100;
+		total = amount * tm->coins->count;
+		printf("$%.2f\t%i\t\t$%.2f\n", amount, tm->coins->count, total);
+	
+		tm->coins++;
+	
+	}
+	
+
 }
 
 /**************************************************************************
