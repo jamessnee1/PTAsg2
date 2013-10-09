@@ -214,6 +214,8 @@ void delete_ticket(tm_type * tm)
 		/*If ticket name is the same as the one entered in*/
 		if (strcmp(current->data->ticket_name, temp_ticket_name) == 0){
 		
+			printf("Found the ticket name!\n");
+			
 			/*We have found it*/
 			if (current == tm->stock->head_stock){
 				
@@ -256,7 +258,9 @@ void delete_ticket(tm_type * tm)
                 return;
 			
 				}
+				
 		}
+		
 
 			/*If conditions arent met, iterate through list*/
 			previous = current;

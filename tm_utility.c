@@ -95,7 +95,7 @@ void read_rest_of_line(void)
 ***************************************************************************/
 BOOLEAN system_init(tm_type * tm)
 {
-
+	int i = 0;
 	/*Malloc space for the tm->stock list*/
 	tm->stock = (struct stock_list *)malloc(sizeof(struct stock_list));
 	
@@ -105,10 +105,15 @@ BOOLEAN system_init(tm_type * tm)
 	
 	}
 	
-	/*Malloc pointer for the coin list*/
-	tm->coins = (struct coin *)malloc(sizeof(struct coin));
+	/*Malloc pointer for the coin list, for 6 spaces*/
+	tm->coins = (struct coin *)calloc(COIN_LENGTH, sizeof(struct coin));
 	
+	for (i = 0; i <= COIN_LENGTH; i++){
+		printf("tm->coins[%i] initialised with size of %i\n", i , sizeof(coin_list_ptr[i]));
 	
+	}
+	
+
 	if (!tm->coins){
 		perror("Error: Memory allocation failed! Exiting...\n");
 		return EXIT_FAILURE;
@@ -117,7 +122,7 @@ BOOLEAN system_init(tm_type * tm)
     /*initialise the tm system to null everything*/
 	tm->stock->head_stock = NULL;
 	tm->stock->num_stock_items = 0;
-    tm->coins = NULL;
+    
     
     return TRUE;
 }
@@ -173,8 +178,10 @@ BOOLEAN load_data(tm_type * tm, char * stockfile, char * coinsfile)
 **************************************************************************/
 void system_free(tm_type_ptr tm)
 {
+	int i = 0;
 	/*Create pointers to the lists*/
 	stock_node *currentItem = NULL, *nextItem = NULL;
+	struct coin *node = NULL;
 	
 	/*set current to head*/
 	currentItem = tm->stock->head_stock;
@@ -191,6 +198,7 @@ void system_free(tm_type_ptr tm)
 		currentItem = nextItem;
 	
 	}
+	
 	
 	/*finally, free tm->stock and coins*/
 	free(tm->stock);

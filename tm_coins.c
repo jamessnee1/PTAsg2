@@ -79,7 +79,8 @@ while (buffer != NULL){
 		count++;
 
 	if (count == 3){
-	
+		
+		/*add to array here*/
 		add_coin_to_node(tm, data);
 	
 	}
@@ -95,9 +96,37 @@ return TRUE;
 
 BOOLEAN add_coin_to_node(tm_type_ptr tm, struct coin *data){
 	
-		
+	int i = 0;
+	printf("In add coin to node\n");
 	
+		
+		if (data->denomination == FIVE_CENTS){
+			tm->coins[0] = *data;
+			printf("tm->coins contains: enum: %i count: %i\n", tm->coins[0].denomination, tm->coins[0].count);
+		}
+		else if (data->denomination == TEN_CENTS){
+			tm->coins[1] = *data;
+			printf("tm->coins contains: enum: %i count: %i\n", tm->coins[1].denomination, tm->coins[1].count);
+		}
+		else if (data->denomination == TWENTY_CENTS){
+			tm->coins[2] = *data;
+			printf("tm->coins contains: enum: %i count: %i\n", tm->coins[2].denomination, tm->coins[2].count);
+		}
+		else if (data->denomination == FIFTY_CENTS){
+			tm->coins[3] = *data;
+			printf("tm->coins contains: enum: %i count: %i\n", tm->coins[3].denomination, tm->coins[3].count);
+		}
+		else if (data->denomination == ONE_DOLLAR){
+			tm->coins[4] = *data;
+			printf("tm->coins contains: enum: %i count: %i\n", tm->coins[4].denomination, tm->coins[4].count);
+		}
+		else if (data->denomination == TWO_DOLLARS){
+			tm->coins[5] = *data;
+			printf("tm->coins contains: enum: %i count: %i\n", tm->coins[5].denomination, tm->coins[5].count);
+		}
+		
 
+		
 
 return TRUE;
 }
