@@ -27,6 +27,7 @@
 #define TICKET_TYPE_LEN 3
 #define COIN_LENGTH 6
 
+
 typedef struct tm * tm_type_ptr;
 
 typedef enum truefalse

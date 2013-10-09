@@ -28,6 +28,7 @@ data = (struct stock_data *)malloc(sizeof(struct stock_data));
 
 
 
+
 /*tokenize passed in line to buffer variable*/
 buffer = strtok(stockfile, DELIM);
 
@@ -92,6 +93,7 @@ BOOLEAN add_stock_to_node(tm_type_ptr tm, struct stock_data *data){
 	
 	/*malloc new item*/
 	newItem = (stock_node *)malloc(sizeof(stock_node));
+
 	
 	if (!newItem){
 		perror("Error: Memory allocation failed! Exiting...\n");

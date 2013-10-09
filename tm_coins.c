@@ -25,7 +25,6 @@ int count = 1;
 data = (struct coin *)malloc(sizeof(struct coin));
 
 
-
 /*tokenize into a buffer*/
 buffer = strtok(coinsfile, DELIM);
 
@@ -98,30 +97,36 @@ BOOLEAN add_coin_to_node(tm_type_ptr tm, struct coin *data){
 	
 		if (data->denomination == FIVE_CENTS){
 			tm->coins[0] = *data;
+			free(data);
 
 		}
 		else if (data->denomination == TEN_CENTS){
 			tm->coins[1] = *data;
+			free(data);
 			
 		}
 		else if (data->denomination == TWENTY_CENTS){
 			tm->coins[2] = *data;
+			free(data);
 			
 		}
 		else if (data->denomination == FIFTY_CENTS){
 			tm->coins[3] = *data;
+			free(data);
 			
 		}
 		else if (data->denomination == ONE_DOLLAR){
 			tm->coins[4] = *data;
+			free(data);
 			
 		}
 		else if (data->denomination == TWO_DOLLARS){
 			tm->coins[5] = *data;
+			free(data);
 			
 		}
-		
-
+	
+	
 		
 
 return TRUE;

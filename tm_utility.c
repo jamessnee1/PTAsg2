@@ -106,7 +106,10 @@ BOOLEAN system_init(tm_type * tm)
 	}
 	
 	/*Malloc pointer for the coin list, for 6 spaces + 1 so we dont get heap block overrun*/
-	tm->coins = (struct coin *)malloc((COIN_LENGTH+1) * sizeof(struct coin));
+	/*tm->coins = (struct coin *)malloc((COIN_LENGTH+1) * sizeof(struct coin));*/
+	
+	tm->coins = (struct coin *)malloc((COIN_LENGTH + 1) * sizeof(struct coin));
+	
 	
 
 	if (!tm->coins){
@@ -175,9 +178,6 @@ void system_free(tm_type_ptr tm)
 {
 	/*Create pointers to the lists*/
 	stock_node *currentItem = NULL, *nextItem = NULL;
-	
-	
-	printf("In system free\n");
 	
 	
 	/*set current to head*/
