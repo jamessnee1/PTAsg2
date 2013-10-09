@@ -37,4 +37,5 @@ struct stock_list
 BOOLEAN tokenize_stock_file(tm_type_ptr tm, char *stockfile);
 BOOLEAN add_stock_to_node(tm_type_ptr tm, struct stock_data *data);
 int stock_cmp(struct stock_data *first, struct stock_data *second);
+
 #endif

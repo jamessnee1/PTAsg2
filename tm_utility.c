@@ -216,9 +216,11 @@ void system_free(tm_type_ptr tm)
 
 	for (i = 0; i < COIN_LENGTH; i++){
 	
+		tm->coins->denomination = 0;
+		tm->coins->count = 0;
+		
 		free(tm->coins);
-		printf("TM COINS FREE!\n");
-		tm->coins++;
+		listptr++;
 	
 	}
 	
