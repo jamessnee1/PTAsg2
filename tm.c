@@ -98,6 +98,7 @@ int main(int argc, char** argv)
 			restock_tickets(&tm);
 			break;
 		case 8:
+			restock_coins(&tm);
 			break;
 		case 9:
 			quit = TRUE;

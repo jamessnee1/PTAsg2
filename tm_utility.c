@@ -95,7 +95,7 @@ void read_rest_of_line(void)
 ***************************************************************************/
 BOOLEAN system_init(tm_type * tm)
 {
-	
+	int i = 0;
 	/*Malloc space for the tm->stock list*/
 	tm->stock = (struct stock_list *)malloc(sizeof(struct stock_list));
 	
@@ -106,8 +106,15 @@ BOOLEAN system_init(tm_type * tm)
 	}
 	
 	/*Malloc pointer for the coin list, for 6 spaces*/
-	tm->coins = (struct coin *)calloc(COIN_LENGTH, sizeof(struct coin));
+	/*tm->coins = (struct coin *)calloc(COIN_LENGTH, sizeof(struct coin));*/
 	
+	for (i = 0; i < COIN_LENGTH; i++){
+	
+		tm->coins = (struct coin *)malloc(sizeof(struct coin));
+		printf("TM COINS MALLOC!\n");
+		tm->coins++;
+	
+	}
 
 	if (!tm->coins){
 		perror("Error: Memory allocation failed! Exiting...\n");
@@ -117,6 +124,8 @@ BOOLEAN system_init(tm_type * tm)
     /*initialise the tm system to null everything*/
 	tm->stock->head_stock = NULL;
 	tm->stock->num_stock_items = 0;
+	tm->coins->denomination = 0;
+	tm->coins->count = 0;
     
     
     return TRUE;
@@ -173,13 +182,20 @@ BOOLEAN load_data(tm_type * tm, char * stockfile, char * coinsfile)
 **************************************************************************/
 void system_free(tm_type_ptr tm)
 {
-	
+	int i = 0;
 	/*Create pointers to the lists*/
 	stock_node *currentItem = NULL, *nextItem = NULL;
+	
+	struct coin *listptr = NULL;
+	
+	printf("In system free\n");
 	
 	
 	/*set current to head*/
 	currentItem = tm->stock->head_stock;
+	
+	/*set listptr to head*/
+	listptr = &tm->coins[0];
 	
 	
 	while (currentItem != NULL){
@@ -190,13 +206,28 @@ void system_free(tm_type_ptr tm)
 		/*free all data*/
 		free(currentItem->data);
 		free(currentItem);
+		printf("Freed data and currentitem\n");
 		currentItem = nextItem;
 	
 	}
 	
 	
+	/*free coins list*/
+
+	for (i = 0; i < COIN_LENGTH; i++){
+	
+		free(tm->coins);
+		printf("TM COINS FREE!\n");
+		tm->coins++;
+	
+	}
+	
+	
+	
+	
 	/*finally, free tm->stock and coins*/
 	free(tm->stock);
 	free(tm->coins);
+	printf("Freed stock and coins ptrs\n"); 
 
 }

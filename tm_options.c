@@ -285,7 +285,7 @@ void delete_ticket(tm_type * tm)
 void display_coins(tm_type * tm)
 {
 	int i = 0;
-	float total;
+	float total, grandtotal;
 	float amount;
 	printf("\nCoin\tQuantity\tValue\n");
 	printf("----\t--------\t-----\n\n");
@@ -296,10 +296,13 @@ void display_coins(tm_type * tm)
 		amount = (float)tm->coins->denomination / 100;
 		total = amount * tm->coins->count;
 		printf("$%.2f\t%i\t\t$%.2f\n", amount, tm->coins->count, total);
-	
+		/*adds all of the totals to grandtotal*/
+		grandtotal += total;
 		tm->coins++;
 	
 	}
+	printf("\t\t\t-----\n");
+	printf("Total Value: \t\t$%.2f\n\n", grandtotal);
 	
 
 }
@@ -329,7 +332,7 @@ void restock_tickets(tm_type * tm)
 		current = current->next_node;
 	}
 	
-	printf("All ticket products have been restored to the default level.\n\n");
+	printf("All ticket products have been restocked to the default level.\n\n");
 	
 }
 
@@ -340,6 +343,23 @@ void restock_tickets(tm_type * tm)
 **************************************************************************/
 void restock_coins(tm_type * tm)
 {
+	int i = 0;
+	struct coin *listptr;
+	/*create a ptr to start of coins array*/
+	listptr = &tm->coins[0];
+
+	printf("\nRestock Coins\n");
+	printf("---------------\n");
+	
+	for (i = 0; i < COIN_LENGTH; i++){
+	
+		listptr->count = DEFAULT_COINS_COUNT;
+		listptr++;
+	
+	}
+	
+	printf("All coins have been restocked to the default level.\n\n");
+
 }
 
 /**************************************************************************
