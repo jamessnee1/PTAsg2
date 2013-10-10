@@ -24,6 +24,11 @@ int count = 1;
 /*Malloc coins_data*/
 data = (struct coin *)malloc(sizeof(struct coin));
 
+/*initialise to 0*/
+
+data->denomination = 0;
+data->count = 0;
+
 
 /*tokenize into a buffer*/
 buffer = strtok(coinsfile, DELIM);

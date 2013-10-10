@@ -285,8 +285,8 @@ void delete_ticket(tm_type * tm)
 void display_coins(tm_type * tm)
 {
 	int i = 0;
-	float total, grandtotal;
-	float amount;
+	float total = 0, grandtotal = 0;
+	float amount = 0;
 	printf("\nCoin\tQuantity\tValue\n");
 	printf("----\t--------\t-----\n\n");
 	
