@@ -15,10 +15,10 @@
 BOOLEAN tokenize_coins_file(tm_type_ptr tm, char *coinsfile){
 
 /*create variables*/
-char *buffer;
+char *buffer = NULL;
 struct coin *data = NULL;
-int temp_coin;
-unsigned int temp_count;
+int temp_coin = 0;
+unsigned int temp_count = 0;
 int count = 1;
 
 /*Malloc coins_data*/
@@ -129,6 +129,13 @@ BOOLEAN add_coin_to_node(tm_type_ptr tm, struct coin *data){
 			tm->coins[5] = *data;
 			free(data);
 			
+		}
+		else {
+		
+			printf("Error: Invalid coin type in data file! Exiting...\n");
+			exit(EXIT_FAILURE);
+		
+		
 		}
 	
 	

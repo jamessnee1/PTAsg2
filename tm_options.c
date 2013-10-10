@@ -345,8 +345,9 @@ void restock_coins(tm_type * tm)
 {
 	int i = 0;
 	struct coin *listptr;
+	
 	/*create a ptr to start of coins array*/
-	listptr = &tm->coins[0];
+	listptr = tm->coins;
 
 	printf("\nRestock Coins\n");
 	printf("---------------\n");

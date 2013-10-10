@@ -182,8 +182,10 @@ void system_free(tm_type_ptr tm)
 	stock_node *currentItem = NULL, *nextItem = NULL;
 
 	
+	
 	/*set current to head*/
 	currentItem = tm->stock->head_stock;
+	
 	
 	
 	
@@ -198,7 +200,6 @@ void system_free(tm_type_ptr tm)
 		currentItem = nextItem;
 	
 	}
-	
 	
 	/*finally, free tm->stock and coins*/
 	free(tm->stock);
