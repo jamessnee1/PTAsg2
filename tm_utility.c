@@ -61,7 +61,7 @@ char * charinput(char * prompt, char * storage, int size){
                 read_rest_of_line();
         
             }
-        
+			
             else if (strcmp(storage, "\n") == 0){
                     return FALSE;
             }

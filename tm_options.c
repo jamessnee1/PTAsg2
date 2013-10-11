@@ -381,4 +381,68 @@ void restock_coins(tm_type * tm)
 **************************************************************************/
 void save_data(tm_type * tm, char * stockfile, char * coinsfile)
 {
+	/*2 Files*/
+    FILE *fp1;
+    FILE *fp2;
+	
+	/*Loop counter*/
+	int i = 0;
+    
+    /*Pointers for list*/
+    struct stock_node *currentstock = NULL, *previousstock = NULL;
+    struct coin *currentcoin = NULL;
+    
+    /*point current to headstock*/
+    currentstock = tm->stock->head_stock;
+    
+    
+    /*Open both files to write data*/
+    fp1 = fopen(FNAME1, "w");
+    fp2 = fopen(FNAME2, "w");
+    
+    
+    /*If program.dat is empty, throw an error*/
+    if (fp1 == NULL){
+        printf("\nError: Cannot save program.dat! Exiting...\n\n");
+        exit(EXIT_FAILURE);
+    }
+    
+    /*If course.dat is empty, throw an error*/
+    if (fp2 == NULL){
+        printf("\nError: Cannot save course.dat! Exiting...\n\n");
+        exit(EXIT_FAILURE);
+    }
+    
+    
+    /*Loop through stock list*/
+    while (currentstock != NULL){
+        
+        /*point currentcoin to tm->coins*/
+        currentcoin = tm->coins;
+    
+        fprintf(fp1, "%s,%c,%s,%i,%i\n", currentstock->data->ticket_name, currentstock->data->ticket_type, currentstock->data->ticket_zone,
+			currentstock->data->ticket_price, currentstock->data->stock_level);
+
+			
+        /*iterate through list*/
+        previousstock = currentstock;
+        currentstock = currentstock->next_node;
+    
+    }
+	
+	/*Loop for coins list*/
+	for (i = 0; i < COIN_LENGTH; i++){
+	
+		fprintf(fp2, "%i,%i\n", currentcoin->denomination, currentcoin->count);
+		/*increment counter*/
+		currentcoin++;
+	}
+	
+	/*set the ptr to null*/
+	currentcoin = NULL;
+
+    /*close files*/
+    fclose(fp1);
+    fclose(fp2);
+
 }

@@ -21,6 +21,7 @@
 int main(int argc, char** argv)
 {
 	int input;
+	char *stockfile = NULL, *coinsfile = NULL;
 	char charInput[MENUINPUT + EXTRA_SPACES];
     tm_type tm;
     BOOLEAN quit = FALSE;
@@ -84,6 +85,9 @@ int main(int argc, char** argv)
 			display_tickets(&tm);
 			break;
 		case 3:
+			save_data(&tm, stockfile, coinsfile);
+			system_free(&tm);
+            exit(EXIT_SUCCESS);
 			break;
 		case 4:
 			add_ticket(&tm);
