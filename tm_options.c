@@ -287,22 +287,30 @@ void display_coins(tm_type * tm)
 	int i = 0;
 	float total = 0, grandtotal = 0;
 	float amount = 0;
+	
+	/*create pointer to coins list*/
+	struct coin *listptr = NULL;
+	listptr = tm->coins;
+	
 	printf("\nCoin\tQuantity\tValue\n");
 	printf("----\t--------\t-----\n\n");
 	
 	for (i = 0; i < COIN_LENGTH; i++){
 	
 		
-		amount = (float)tm->coins->denomination / 100;
-		total = amount * tm->coins->count;
-		printf("$%.2f\t%i\t\t$%.2f\n", amount, tm->coins->count, total);
+		amount = (float)listptr->denomination / 100;
+		total = amount * listptr->count;
+		printf("$%.2f\t%i\t\t$%.2f\n", amount, listptr->count, total);
 		/*adds all of the totals to grandtotal*/
 		grandtotal += total;
-		tm->coins++;
+		listptr++;
 	
 	}
 	printf("\t\t\t-----\n");
 	printf("Total Value: \t\t$%.2f\n\n", grandtotal);
+	
+	/*free list pointer*/
+	listptr = NULL;
 	
 
 }
