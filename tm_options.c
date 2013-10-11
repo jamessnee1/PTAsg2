@@ -23,10 +23,15 @@
 void purchase_ticket(tm_type * tm)
 {
 	/*declare temp variables*/
+	
+	stock_node *current = NULL;
 	char temp_ticket_name[TICKET_NAME_LEN], temp_ticket_type[1 + EXTRA_SPACES], temp_ticket_zone[TICKET_ZONE_LEN+1];
 	char *prompt1 = "Enter a ticket name (1-40 characters): ";
 	char *prompt2 = "Enter a ticket type (1 character): ";
 	char *prompt3 = "Enter a zone (1, 2, or 1+2): ";
+	
+	/*set node to head*/
+	current = tm->stock->head_stock;
 	
 	printf("\nPurchase Ticket\n");
 	printf("---------------\n\n");
@@ -42,6 +47,44 @@ void purchase_ticket(tm_type * tm)
 		if (zoneinput(prompt3, temp_ticket_zone, TICKET_TYPE_LEN + EXTRA_SPACES) == FALSE){
 			return;
 		}
+		
+		while(current != NULL){
+		
+			if (strcmp(current->data->ticket_name, temp_ticket_name) == 0){
+				printf("Found ticket name!\n");
+				
+				/*nested if to find the ticket type*/
+				if(current->data->ticket_type == temp_ticket_type[0]){
+					printf("Found ticket type!\n");
+				
+				}
+				else{
+					printf("Did not find the ticket type!\n");
+				
+				}
+				
+					/*nested if to find zone*/
+					if(strcmp(current->data->ticket_zone, temp_ticket_zone) == 0){
+						printf("Found ticket zone!\n");
+						/*send this to enter coins function*/
+						if(enter_coin(tm, current->data->ticket_price) == FALSE){
+							return;
+						}
+					
+					}
+					else{
+						printf("Did not find the ticket zone!\n");
+					}
+			}else{
+				printf("Did not find ticket name!\n");
+				
+				
+			}
+			
+		
+			current = current->next_node;
+		}
+		
 	
 }
 

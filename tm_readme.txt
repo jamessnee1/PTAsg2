@@ -30,6 +30,11 @@ Assumptions:
 I have assumed that there is only a set list of coins that can be added to the system
 in the amounts provided, if these denominations are not found, the program exits.
 
+For my input validation the program sends parameters to functions to check
+the length/EOF/return to menu functionality so I have assumed that, even in functions such as
+delete_ticket where we have to check for the existence of a ticket, it will automatically rule out
+any outrageous values (delete a ticket with a zone of f, for example)
+
 
 Any other notes for the marker:
 -------------------------------

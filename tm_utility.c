@@ -131,6 +131,69 @@ char * zoneinput(char * prompt, char * storage, int size){
 	return storage;	
 }
 
+/*enter coins function*/
+BOOLEAN enter_coin(tm_type_ptr tm, int price){
+
+	char charinput[COIN_INPUT_LENGTH];
+	int price_copy = price, i = 0, input;
+	struct coin *coinptr = NULL;
+
+	printf("\nThe price is $%.2f.\n", (float)price_copy / 100);
+	
+	do{
+	
+		printf("Enter a coin ($%.2f remaining): ", (float)price_copy / 100);
+		if (fgets(charinput, COIN_INPUT_LENGTH + EXTRA_SPACES, stdin) == NULL){
+			return FALSE;
+		}
+		
+			if(charinput[strlen(charinput) -1] !='\n'){
+                printf("Error: Input was too long! Try again.\n");
+                read_rest_of_line();
+        
+            }
+			
+            else if (strcmp(charinput, "\n") == 0){
+                    return FALSE;
+            }
+			else if (strcmp(charinput, "5") == 0){
+				input = atoi(charinput);
+					printf("5 cents\n");
+			}
+			else if (strcmp(charinput, "10") == 0){
+				input = atoi(charinput);
+					printf("10 cents\n");
+			}
+			else if (strcmp(charinput, "20") == 0){
+				input = atoi(charinput);
+					printf("20 cents\n");
+			}
+			else if (strcmp(charinput, "50") == 0){
+				input = atoi(charinput);
+					printf("50 cents\n");
+			}
+			else if (strcmp(charinput, "100") == 0){
+				input = atoi(charinput);
+					printf("1 dollar\n");
+			}
+			else if (strcmp(charinput, "200") == 0){
+				input = atoi(charinput);
+					printf("2 dollars\n");
+			}
+
+	
+	
+	
+	}
+	while(price_copy > 0);
+	
+	
+	
+	
+
+	return TRUE;
+}
+
 
 /***************************************************************************
 * read_rest_of_line() - reads characters from the input buffer until 

@@ -26,5 +26,5 @@ void system_free(tm_type_ptr);
 char * stringinput(char * prompt, char * storage, int size);
 char * charinput(char * prompt, char * storage, int size);
 char * zoneinput(char * prompt, char * storage, int size);
-
+BOOLEAN enter_coin(tm_type_ptr tm, int price);
 #endif
