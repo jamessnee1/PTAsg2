@@ -67,6 +67,11 @@ while (buffer != NULL){
 				data->denomination = TWO_DOLLARS;
 				
 			}
+			else{
+				perror("Error: Invalid coin data! Exiting...\n");
+				exit(EXIT_FAILURE);
+			
+			}
 			break;
 		case 2:
 			/*convert buffer to an int*/

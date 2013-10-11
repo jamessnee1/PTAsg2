@@ -39,7 +39,7 @@ void purchase_ticket(tm_type * tm)
 			return;
 		}
 		
-		if (stringinput(prompt3, temp_ticket_zone, TICKET_ZONE_LEN + 1) == FALSE){
+		if (zoneinput(prompt3, temp_ticket_zone, TICKET_TYPE_LEN + EXTRA_SPACES) == FALSE){
 			return;
 		}
 	
@@ -117,7 +117,7 @@ void add_ticket(tm_type * tm)
 	}
 		
 		
-	if (stringinput(prompt3, temp_ticket_zone, TICKET_ZONE_LEN + 1) == FALSE){
+	if (zoneinput(prompt3, temp_ticket_zone, TICKET_TYPE_LEN + EXTRA_SPACES) == FALSE){
 		return;
 	}
 		
@@ -165,6 +165,8 @@ void add_ticket(tm_type * tm)
 		
 		/*Send data to add stock function*/
 		add_stock_to_node(tm, data);
+		
+		printf("Ticket successfully added to system.\n");
 }
 
 /**************************************************************************
@@ -203,7 +205,7 @@ void delete_ticket(tm_type * tm)
 	}
 	
 		
-	if (stringinput(prompt3, temp_ticket_zone, TICKET_ZONE_LEN + 1) == FALSE){
+	if (zoneinput(prompt3, temp_ticket_zone, TICKET_TYPE_LEN + EXTRA_SPACES) == FALSE){
 		return;
 	}
 	
@@ -293,7 +295,7 @@ void display_coins(tm_type * tm)
 	listptr = tm->coins;
 	
 	printf("\nCoin\tQuantity\tValue\n");
-	printf("----\t--------\t-----\n\n");
+	printf("----\t--------\t-----\n");
 	
 	for (i = 0; i < COIN_LENGTH; i++){
 	
@@ -307,7 +309,7 @@ void display_coins(tm_type * tm)
 	
 	}
 	printf("\t\t\t-----\n");
-	printf("Total Value: \t\t$%.2f\n\n", grandtotal);
+	printf("Total Value: \t\t$%.2f\n", grandtotal);
 	
 	/*free list pointer*/
 	listptr = NULL;
@@ -389,7 +391,7 @@ void save_data(tm_type * tm, char * stockfile, char * coinsfile)
 	int i = 0;
     
     /*Pointers for list*/
-    struct stock_node *currentstock = NULL, *previousstock = NULL;
+    struct stock_node *currentstock = NULL;
     struct coin *currentcoin = NULL;
     
     /*point current to headstock*/
@@ -425,7 +427,6 @@ void save_data(tm_type * tm, char * stockfile, char * coinsfile)
 
 			
         /*iterate through list*/
-        previousstock = currentstock;
         currentstock = currentstock->next_node;
     
     }

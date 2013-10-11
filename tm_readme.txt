@@ -12,7 +12,7 @@
 If selected, do you grant permission for your assignment
 to be released as an anonymous student sample solution?
 --------------------------------------------------------
-
+Yes
 
 
 Known bugs:
@@ -27,9 +27,10 @@ Incomplete functionality:
 
 Assumptions:
 ------------
-
+I have assumed that there is only a set list of coins that can be added to the system
+in the amounts provided, if these denominations are not found, the program exits.
 
 
 Any other notes for the marker:
 -------------------------------
-
+Total assignment time = ~30 hours

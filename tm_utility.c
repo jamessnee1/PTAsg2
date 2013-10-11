@@ -21,14 +21,19 @@ char * stringinput(char * prompt, char * storage, int size){
 	
 	do{
         printf("%s", prompt);
-        fgets(storage, size, stdin);
-       
+		
+		/*Handling CTRL-D Input*/
+        if(fgets(storage, size, stdin) == NULL){
+			return FALSE;
+		}
+			/*Handling input length*/
             if(storage[strlen(storage) -1] !='\n'){
                 printf("Error: Input was too long! Try again.\n");
                 read_rest_of_line();
         
             }
-        
+			
+			/*Handling newline input*/
             else if (strcmp(storage, "\n") == 0){
                     return FALSE;
             }
@@ -54,7 +59,9 @@ char * charinput(char * prompt, char * storage, int size){
 	
 	do{
         printf("%s", prompt);
-        fgets(storage, size, stdin);
+        if(fgets(storage, size, stdin) == NULL){
+			return FALSE;
+		}
        
             if(storage[strlen(storage) -1] !='\n'){
                 printf("Error: Input was too long! Try again.\n");
@@ -65,9 +72,58 @@ char * charinput(char * prompt, char * storage, int size){
             else if (strcmp(storage, "\n") == 0){
                     return FALSE;
             }
-            else{
-                storage[strlen(storage) -1] = '\0';
+			else if (storage[0] == 'F'){
+				storage[strlen(storage) -1] = '\0';
                 finished = TRUE;
+			}
+			else if (storage[0] == 'C'){
+				storage[strlen(storage) -1] = '\0';
+                finished = TRUE;
+			}
+            else{
+                printf("Error: not a valid input! Please try again.\n");
+            }
+        
+        }while(!finished);
+
+	return storage;	
+}
+
+/*Zone Input function that takes in a prompt, storage var and a size as a param*/
+char * zoneinput(char * prompt, char * storage, int size){
+	
+	BOOLEAN finished = FALSE;
+	
+	do{
+        printf("%s", prompt);
+        if(fgets(storage, size, stdin) == NULL){
+			return FALSE;
+		}
+		
+       
+            if(storage[strlen(storage) -1] !='\n'){
+                printf("Error: Input was too long! Try again.\n");
+                read_rest_of_line();
+        
+            }
+			
+            else if (strcmp(storage, "\n") == 0){
+                    return FALSE;
+            }
+			else if (storage[0] == '1'){
+				storage[strlen(storage) -1] = '\0';
+                finished = TRUE;
+			}
+			else if (storage[0] == '2'){
+				storage[strlen(storage) -1] = '\0';
+                finished = TRUE;
+			}
+			else if (strncmp(storage, "1+2", 2) == 0){
+				storage[strlen(storage) -1] = '\0';
+                finished = TRUE;
+			}
+            else{
+                printf("Error: not a valid input! Please try again.\n");
             }
         
         }while(!finished);
