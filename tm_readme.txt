@@ -33,7 +33,10 @@ in the amounts provided, if these denominations are not found, the program exits
 For my input validation the program sends parameters to functions to check
 the length/EOF/return to menu functionality so I have assumed that, even in functions such as
 delete_ticket where we have to check for the existence of a ticket, it will automatically rule out
-any outrageous values (delete a ticket with a zone of f, for example)
+any outrageous values (delete a ticket with a zone of f, for example).
+
+I have assumed that the ticket price can be no greater than $1000 and the highest stock level to be
+the default stock level.
 
 
 Any other notes for the marker:

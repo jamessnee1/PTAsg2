@@ -40,6 +40,10 @@ switch(count){
 	
 	case 1:
 		strcpy(temp_ticket_name, buffer);
+		if (strlen(temp_ticket_name) > TICKET_NAME_LEN + 1){
+			printf("Error: corrupted data when loading Ticket name! Exiting...\n");
+			exit(EXIT_FAILURE);
+		}
 		strcpy(data -> ticket_name, temp_ticket_name);
 		break;
 	case 2:
@@ -55,15 +59,27 @@ switch(count){
 		break;
 	case 3:
 		strcpy(temp_ticket_zone, buffer);
+			if (strlen(temp_ticket_name) > TICKET_NAME_LEN + 1){
+				printf("Error: corrupted data when loading Ticket zone! Exiting...\n");
+				exit(EXIT_FAILURE);
+			}
 		strcpy(data->ticket_zone, temp_ticket_zone);
 		break;
 	case 4:
 		strcpy(char_ticket_price, buffer);
+			if (strlen(char_ticket_price) > 100000){
+				printf("Error: corrupted data when loading Ticket price! Exiting...\n");
+				exit(EXIT_FAILURE);
+			}
 		temp_ticket_price = atoi(char_ticket_price);
 		data->ticket_price = temp_ticket_price;
 		break;
 	case 5:
 		strcpy(char_stock_level, buffer);
+			if (strlen(char_stock_level) > DEFAULT_STOCK_LEVEL){
+				printf("Error: corrupted data when loading Stock level! Exiting...\n");
+				exit(EXIT_FAILURE);
+			}
 		temp_stock_level = atoi(char_stock_level);
 		data->stock_level = temp_stock_level;
 		break;
