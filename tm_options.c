@@ -29,6 +29,8 @@ void purchase_ticket(tm_type * tm)
 	char *prompt1 = "Enter a ticket name (1-40 characters): ";
 	char *prompt2 = "Enter a ticket type (1 character): ";
 	char *prompt3 = "Enter a zone (1, 2, or 1+2): ";
+	char * print;
+	int returnedprice;
 	
 	/*set node to head*/
 	current = tm->stock->head_stock;
@@ -51,30 +53,38 @@ void purchase_ticket(tm_type * tm)
 		while(current != NULL){
 		
 			if (strcmp(current->data->ticket_name, temp_ticket_name) == 0){
-				printf("Found ticket name!\n");
+				
 				
 				/*nested if to find the ticket type*/
 				if(current->data->ticket_type == temp_ticket_type[0]){
-					printf("Found ticket type!\n");
-				
-				}
-				else{
-					printf("Did not find the ticket type!\n");
+					
+							
+							/*Sets which ticket type*/
+							if (current->data->ticket_type == 'F'){
+								print = "Full Fare";
+		
+							}
+							else {
+								print = "Concession";
+		
+							}
 				
 				}
 				
 					/*nested if to find zone*/
 					if(strcmp(current->data->ticket_zone, temp_ticket_zone) == 0){
-						printf("Found ticket zone!\n");
+						
 						/*send this to enter coins function*/
-						if(enter_coin(tm, current->data->ticket_price) == FALSE){
+						if((returnedprice = enter_coin(tm, current->data->ticket_price)) == -1){
 							return;
+						}
+						else {
+							/*break out of while loop and process coin return*/
+							break;
 						}
 					
 					}
-					else{
-						printf("Did not find the ticket zone!\n");
-					}
+
 			}else{
 				printf("Did not find ticket name!\n");
 				
@@ -83,8 +93,36 @@ void purchase_ticket(tm_type * tm)
 			
 		
 			current = current->next_node;
+			if (current->next_node == NULL){
+				return;
+			}
 		}
+		/*decrement the stock items and qty by 1*/
+		current->data->stock_level--;
+		tm->stock->num_stock_items--;
+		printf("Thank you for purchasing a %s %s zone %s ticket.\n", current->data->ticket_name, print, current->data->ticket_zone);
+		printf("Your change is: %i\n", returnedprice);
+		printf("Your change is: $%.2f\n", (float)(returnedprice * -1) / 100);
+		printf("Your change coins are: ");
 		
+		if (returnedprice >= -5){
+			printf("5c\n");
+		}
+		else if (returnedprice >= -10){
+			printf("10c\n");
+		}
+		else if (returnedprice >= -20){
+			printf("20c\n");
+		}
+		else if (returnedprice >= -50){
+			printf("50c\n");
+		}
+		else if (returnedprice >= -100){
+			printf("$1\n");
+		}
+		else if (returnedprice >= -200){
+			printf("$2\n");
+		}
 	
 }
 
@@ -223,7 +261,7 @@ void add_ticket(tm_type * tm)
 void delete_ticket(tm_type * tm)
 {
 	/*Pointers to nodes*/
-	struct stock_node *current = NULL, *previous = NULL, *next;
+	struct stock_node *current = NULL, *previous = NULL, *next = NULL;
 	/*Temp variables*/
 	char temp_ticket_name[TICKET_NAME_LEN], temp_ticket_type[1 + EXTRA_SPACES], temp_ticket_zone[TICKET_ZONE_LEN+1];
 	char *print;
@@ -258,52 +296,54 @@ void delete_ticket(tm_type * tm)
 		
 		/*If ticket name is the same as the one entered in*/
 		if (strcmp(current->data->ticket_name, temp_ticket_name) == 0){
-		
-			printf("Found the ticket name!\n");
+				
+				/*We have found it*/
+				if (current == tm->stock->head_stock){ 
+				
+					
+					
+					/*set the print variable to what type it is*/
+					if (current->data->ticket_type == 'F'){
+						print = "full fare";
 			
-			/*We have found it*/
-			if (current == tm->stock->head_stock){
-				
-				/*set the print variable to what type it is*/
-				if (current->data->ticket_type == 'F'){
-					print = "full fare";
-		
-				}
-				else {
-					print = "concession";
-		
-				}
-				
-				/*set the head stock to next node*/
-				tm->stock->head_stock = current->next_node;
-                /*decrement stock number by 1*/
-                tm->stock->num_stock_items--;
-                printf("\nTicket \'%s %s zone %s\' has been removed from ticketing machine.\n", temp_ticket_name, print, temp_ticket_zone);
-                return;
-            
-			}
-				else{
-				
-				/*set the print variable to what type it is*/
-				if (current->data->ticket_type == 'F'){
-					print = "full fare";
-		
-				}
-				else {
-					print = "concession";
-		
-				}
-				/*If the current is not head, set next to current->next and previous->next to next and free*/
-                next = current->next_node;
-                previous->next_node = next;
-                free(current);
-                /*decrement stocknumber by 1*/
-                tm->stock->num_stock_items--;
-                printf("\nTicket \'%s %s zone %s\' has been removed from ticketing machine.\n", temp_ticket_name, print, temp_ticket_zone);
-                return;
+					}
+					else {
+						print = "concession";
 			
-				}
+					}
+					
+					/*set the head stock to next node*/
+					tm->stock->head_stock = current->next_node;
+					/*decrement stock number by 1*/
+					tm->stock->num_stock_items--;
+					printf("\nTicket \'%s %s zone %s\' has been removed from ticketing machine.\n", temp_ticket_name, print, temp_ticket_zone);
+					return;
 				
+				}
+					else{
+					
+					/*set the print variable to what type it is*/
+					if (current->data->ticket_type == 'F'){
+						print = "full fare";
+			
+					}
+					else {
+						print = "concession";
+			
+					}
+					/*If the current is not head, set next to current->next and previous->next to next and free*/
+					next = current->next_node;
+					previous->next_node = next;
+					free(current);
+					/*decrement stocknumber by 1*/
+					tm->stock->num_stock_items--;
+					printf("\nTicket \'%s %s zone %s\' has been removed from ticketing machine.\n", temp_ticket_name, print, temp_ticket_zone);
+					return;
+				
+					}
+					
+				
+
 		}
 		
 

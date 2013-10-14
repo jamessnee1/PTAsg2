@@ -17,12 +17,13 @@ Yes
 
 Known bugs:
 -----------
-
+Will not delete first or last entry in the stock list
 
 
 Incomplete functionality:
 -------------------------
-
+When purchasing a ticket, it will display the correct change, but will not
+break this down into coins.
 
 
 Assumptions:
@@ -39,6 +40,7 @@ I have assumed that the ticket price can be no greater than $1000 and the highes
 the default stock level.
 
 
+
 Any other notes for the marker:
 -------------------------------
-Total assignment time = ~30 hours
+Total assignment time = ~40 hours

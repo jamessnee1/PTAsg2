@@ -132,22 +132,21 @@ char * zoneinput(char * prompt, char * storage, int size){
 }
 
 /*enter coins function*/
-BOOLEAN enter_coin(tm_type_ptr tm, int price){
+int enter_coin(tm_type_ptr tm, int price){
 
 	char charinput[COIN_INPUT_LENGTH];
-	int total = 0;
-	float input = 0.00;
-	float floatprice = (float)price;
+	int input = 0;
 	BOOLEAN success = FALSE;
 	struct coin *listptr;
+	int fivecent = 0, tencent = 0, twentycent = 0, fiftycent = 0, one = 0, two = 0, negprice = 0;
 	
 	/*create a ptr to start of coins array*/
 	listptr = tm->coins;
-	
+
 	
 	do{
 	
-		printf("Enter a coin ($%.2f remaining): ", floatprice / 100);
+		printf("Enter a coin ($%.2f remaining): ",(float)price / 100);
 		fgets(charinput, COIN_INPUT_LENGTH + EXTRA_SPACES, stdin);
 			
 		
@@ -156,34 +155,42 @@ BOOLEAN enter_coin(tm_type_ptr tm, int price){
                
             }
 			 else if (strcmp(charinput, "\n") == 0){
-                    return FALSE;
+					/*reset all the coin variables*/
+					fivecent = 0;
+					tencent = 0;
+					twentycent = 0;
+					fiftycent = 0;
+					one = 0;
+					two = 0;
+                    return -1;
             }
 
 			/*convert input to float*/
-			input = atof(charinput);
+			input = atoi(charinput);
 			
 			if (input == 5){
-				listptr[0].count++;
+				fivecent++;
 				success = TRUE;
 			}
 			else if (input == 10){
-				listptr[1].count++;
+				tencent++;
 				success = TRUE;
 			}
 			else if (input == 20){
+				twentycent++;
 				listptr[2].count++;
 				success = TRUE;
 			}
 			else if (input == 50){
-				listptr[3].count++;
+				fiftycent++;
 				success = TRUE;
 			}
 			else if (input == 100){
-				listptr[4].count++;
+				one++;
 				success = TRUE;
 			}
 			else if (input == 200){
-				listptr[5].count++;
+				two++;
 				success = TRUE;
 			}
 			else{
@@ -191,23 +198,31 @@ BOOLEAN enter_coin(tm_type_ptr tm, int price){
 			}
 			
 			
-			printf("input is $%.2f\n", input / 100);
+			
 			
 			if (success == TRUE){
-			printf("success! decrementing price\n");
 			/*If the coin was successfully accepted, then decrement from price*/
-			floatprice -= input;
+			price -= input;
 			success = FALSE;
 			}
 			
+			
 	}
-	while(floatprice >= 0);
+	while(price > 0);
 	
+	/*Add coins to coins list*/
+	listptr[0].count += fivecent;
+	listptr[1].count += tencent;
+	listptr[2].count += twentycent;
+	listptr[3].count += fiftycent;
+	listptr[4].count += one;
+	listptr[5].count += two;
 	
+	/*work out the change given from the counters*/
 	
-	
+	negprice = price;
 
-	return TRUE;
+	return negprice;
 }
 
 
