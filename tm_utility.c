@@ -135,57 +135,73 @@ char * zoneinput(char * prompt, char * storage, int size){
 BOOLEAN enter_coin(tm_type_ptr tm, int price){
 
 	char charinput[COIN_INPUT_LENGTH];
-	int price_copy = price, i = 0, input;
-	struct coin *coinptr = NULL;
-
-	printf("\nThe price is $%.2f.\n", (float)price_copy / 100);
+	int total = 0;
+	float input = 0.00;
+	float floatprice = (float)price;
+	BOOLEAN success = FALSE;
+	struct coin *listptr;
+	
+	/*create a ptr to start of coins array*/
+	listptr = tm->coins;
+	
 	
 	do{
 	
-		printf("Enter a coin ($%.2f remaining): ", (float)price_copy / 100);
-		if (fgets(charinput, COIN_INPUT_LENGTH + EXTRA_SPACES, stdin) == NULL){
-			return FALSE;
-		}
+		printf("Enter a coin ($%.2f remaining): ", floatprice / 100);
+		fgets(charinput, COIN_INPUT_LENGTH + EXTRA_SPACES, stdin);
+			
 		
 			if(charinput[strlen(charinput) -1] !='\n'){
                 printf("Error: Input was too long! Try again.\n");
-                read_rest_of_line();
-        
+               
             }
-			
-            else if (strcmp(charinput, "\n") == 0){
+			 else if (strcmp(charinput, "\n") == 0){
                     return FALSE;
             }
-			else if (strcmp(charinput, "5") == 0){
-				input = atoi(charinput);
-					printf("5 cents\n");
-			}
-			else if (strcmp(charinput, "10") == 0){
-				input = atoi(charinput);
-					printf("10 cents\n");
-			}
-			else if (strcmp(charinput, "20") == 0){
-				input = atoi(charinput);
-					printf("20 cents\n");
-			}
-			else if (strcmp(charinput, "50") == 0){
-				input = atoi(charinput);
-					printf("50 cents\n");
-			}
-			else if (strcmp(charinput, "100") == 0){
-				input = atoi(charinput);
-					printf("1 dollar\n");
-			}
-			else if (strcmp(charinput, "200") == 0){
-				input = atoi(charinput);
-					printf("2 dollars\n");
-			}
 
-	
-	
-	
+			/*convert input to float*/
+			input = atof(charinput);
+			
+			if (input == 5){
+				listptr[0].count++;
+				success = TRUE;
+			}
+			else if (input == 10){
+				listptr[1].count++;
+				success = TRUE;
+			}
+			else if (input == 20){
+				listptr[2].count++;
+				success = TRUE;
+			}
+			else if (input == 50){
+				listptr[3].count++;
+				success = TRUE;
+			}
+			else if (input == 100){
+				listptr[4].count++;
+				success = TRUE;
+			}
+			else if (input == 200){
+				listptr[5].count++;
+				success = TRUE;
+			}
+			else{
+				printf("Error: Invalid coin entered! Please try again.\n");
+			}
+			
+			
+			printf("input is $%.2f\n", input / 100);
+			
+			if (success == TRUE){
+			printf("success! decrementing price\n");
+			/*If the coin was successfully accepted, then decrement from price*/
+			floatprice -= input;
+			success = FALSE;
+			}
+			
 	}
-	while(price_copy > 0);
+	while(floatprice >= 0);
 	
 	
 	

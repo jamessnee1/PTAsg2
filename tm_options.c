@@ -297,7 +297,7 @@ void delete_ticket(tm_type * tm)
                 next = current->next_node;
                 previous->next_node = next;
                 free(current);
-                /*decrement numPrograms by 1*/
+                /*decrement stocknumber by 1*/
                 tm->stock->num_stock_items--;
                 printf("\nTicket \'%s %s zone %s\' has been removed from ticketing machine.\n", temp_ticket_name, print, temp_ticket_zone);
                 return;
