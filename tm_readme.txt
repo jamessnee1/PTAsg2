@@ -17,7 +17,7 @@ Yes
 
 Known bugs:
 -----------
-Will not delete first or last entry in the stock list
+Will not delete first entry in the stock list
 
 
 Incomplete functionality:
