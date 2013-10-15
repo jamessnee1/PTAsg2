@@ -52,7 +52,8 @@ void purchase_ticket(tm_type * tm)
 		
 		while(current != NULL){
 		
-			if (strcmp(current->data->ticket_name, temp_ticket_name) == 0){
+			if (strcmp(current->data->ticket_name, temp_ticket_name) == 0 && current->data->ticket_type == temp_ticket_type[0]
+			&& strcmp(current->data->ticket_zone, temp_ticket_zone) == 0){
 				
 				
 				/*nested if to find the ticket type*/
@@ -86,7 +87,7 @@ void purchase_ticket(tm_type * tm)
 					}
 
 			}else{
-				printf("Did not find ticket name!\n");
+				
 				
 				
 			}
@@ -94,6 +95,7 @@ void purchase_ticket(tm_type * tm)
 		
 			current = current->next_node;
 			if (current->next_node == NULL){
+				printf("Error: Could not find ticket!\n");
 				return;
 			}
 		}
@@ -101,11 +103,14 @@ void purchase_ticket(tm_type * tm)
 		current->data->stock_level--;
 		tm->stock->num_stock_items--;
 		printf("Thank you for purchasing a %s %s zone %s ticket.\n", current->data->ticket_name, print, current->data->ticket_zone);
-		printf("Your change is: %i\n", returnedprice);
 		printf("Your change is: $%.2f\n", (float)(returnedprice * -1) / 100);
 		printf("Your change coins are: ");
 		
-		if (returnedprice >= -5){
+		
+		if (returnedprice == 0){
+			printf("None\n");
+		}
+		else if (returnedprice >= -5){
 			printf("5c\n");
 		}
 		else if (returnedprice >= -10){
@@ -295,7 +300,8 @@ void delete_ticket(tm_type * tm)
 	while (current != NULL){
 		
 		/*If ticket name is the same as the one entered in*/
-		if (strcmp(current->data->ticket_name, temp_ticket_name) == 0){
+		if (strcmp(current->data->ticket_name, temp_ticket_name) == 0 && current->data->ticket_type == temp_ticket_type[0]
+			&& strcmp(current->data->ticket_zone, temp_ticket_zone) == 0){
 				
 				/*We have found it*/
 				if (current == tm->stock->head_stock){ 
@@ -314,6 +320,8 @@ void delete_ticket(tm_type * tm)
 					
 					/*set the head stock to next node*/
 					tm->stock->head_stock = current->next_node;
+					/*free current*/
+					free(current);
 					/*decrement stock number by 1*/
 					tm->stock->num_stock_items--;
 					printf("\nTicket \'%s %s zone %s\' has been removed from ticketing machine.\n", temp_ticket_name, print, temp_ticket_zone);
@@ -353,7 +361,7 @@ void delete_ticket(tm_type * tm)
 	
 		}
 		
-		printf("Error: Ticket name does not exist! Could not delete ticket!\n\n");
+		printf("Error: Ticket does not exist! Could not delete ticket!\n\n");
 		return;
 		
 }
