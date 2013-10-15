@@ -335,9 +335,7 @@ void system_free(tm_type_ptr tm)
 	
 	/*set current to head*/
 	currentItem = tm->stock->head_stock;
-	
-	
-	
+
 	
 	while (currentItem != NULL){
 	

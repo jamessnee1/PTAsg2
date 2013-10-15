@@ -86,13 +86,8 @@ void purchase_ticket(tm_type * tm)
 					
 					}
 
-			}else{
-				
-				
-				
 			}
-			
-		
+
 			current = current->next_node;
 			if (current->next_node == NULL){
 				printf("Error: Could not find ticket!\n");

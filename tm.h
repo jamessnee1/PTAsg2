@@ -27,6 +27,7 @@
 #define TICKET_TYPE_LEN 3
 #define COIN_LENGTH 6
 #define COIN_INPUT_LENGTH 3
+#define MAX_TICKET_PRICE 100000
 
 
 typedef struct tm * tm_type_ptr;

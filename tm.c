@@ -39,16 +39,13 @@ int main(int argc, char** argv)
             printf("\nError: Cannot load stock.csv and coins.csv! Exiting...\n\n");
             exit(EXIT_FAILURE);
         }
-	
-	
-	
-	
+
 	}
 
     /* initialise data structures */
 	system_init(&tm);
     /* load data */
-        load_data(&tm, argv[1], argv[2]);
+    load_data(&tm, argv[1], argv[2]);
 
     /* test that everything has gone in initialisation and loading */
 
@@ -75,41 +72,41 @@ int main(int argc, char** argv)
 		input = atoi(charInput);
 		
 		switch(input){
-		case 0:
-			printf("Error: Not a valid option! Please try again.\n\n");
-			break;
-		case 1:
-			purchase_ticket(&tm);
-			break;
-		case 2:
-			display_tickets(&tm);
-			break;
-		case 3:
-			save_data(&tm, stockfile, coinsfile);
-			system_free(&tm);
-            exit(EXIT_SUCCESS);
-			break;
-		case 4:
-			add_ticket(&tm);
-			break;
-		case 5:
-			delete_ticket(&tm);
-			break;
-		case 6:
-			display_coins(&tm);
-			break;
-		case 7:
-			restock_tickets(&tm);
-			break;
-		case 8:
-			restock_coins(&tm);
-			break;
-		case 9:
-			quit = TRUE;
-			break;
+			case 0:
+				printf("Error: Not a valid option! Please try again.\n\n");
+				break;
+			case 1:
+				purchase_ticket(&tm);
+				break;
+			case 2:
+				display_tickets(&tm);
+				break;
+			case 3:
+				save_data(&tm, stockfile, coinsfile);
+				system_free(&tm);
+				exit(EXIT_SUCCESS);
+				break;
+			case 4:
+				add_ticket(&tm);
+				break;
+			case 5:
+				delete_ticket(&tm);
+				break;
+			case 6:
+				display_coins(&tm);
+				break;
+			case 7:
+				restock_tickets(&tm);
+				break;
+			case 8:
+				restock_coins(&tm);
+				break;
+			case 9:
+				quit = TRUE;
+				break;
 
-		
-		}
+			
+			}
 		
 		
     }
